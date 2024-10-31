@@ -231,10 +231,10 @@ mutable struct TextMarkup{C <: Union{Vector{Object}, SubString{String}}} <: Obje
     contents::C
 end
 function TextMarkup(formatting::Symbol, contents::String)
-    if formatting in ('=', '~')
+    if formatting in (:code, :verbatim)
         TextMarkup(formatting, SubString(contents))
     else
-        TextMarkup(formatting, TextPlain(contents))
+        TextMarkup(formatting, Object[TextPlain(contents)])
     end
 end
 
